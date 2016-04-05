@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Audio Param Graph</title>
     <% for (var css in htmlWebpackPlugin.files.css) { %>
     <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet" />
     <% } %>
   </head>
   <body>
+    <header><a href="http://github.com/briandunn/audio_param_graph">Audio Param Graph</a></header>
     <main></main>
     <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
     <script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
