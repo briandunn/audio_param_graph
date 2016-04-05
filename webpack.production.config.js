@@ -7,7 +7,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[hash]-bundle.js',
-    publicPath: '/'
+    publicPath: '/audio_param_graph/'
   },
   plugins: [
     new webpack.NoErrorsPlugin(),
