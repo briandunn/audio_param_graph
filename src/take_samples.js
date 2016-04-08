@@ -30,4 +30,6 @@ export default (store) => {
                        .map((d,i) => ({t: i / width, v: Math.max(_.max(d), 0)}))
     store.dispatch({ type: 'REPLACE_SAMPLES', data: data })
   });
+
+  location.hash = btoa(JSON.stringify(segments.toJS()))
 }
