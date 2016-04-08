@@ -2,13 +2,10 @@ import React from 'react'
 import takeSamples from './take_samples'
 import {paramSignatures} from './model'
 
-const ResultLine = ({points}) => {
-  return (
-    <polyline
-      style={{fill:'none', stroke:'blue', strokeWidth: '0.5%'}}
-      points={ points.map(({t,v}) => [t,1 - v].join(' ')).join(' ') }/>
-  )
-}
+const ResultLine = ({points}) =>
+  <polyline
+    style={{fill:'none', stroke:'blue', strokeWidth: '0.5%'}}
+    points={ points.map(({t,v}) => [t,1 - v].join(' ')).join(' ') }/>
 
 const Circle = ({point}) =>
   <circle r="1%" cx={point.t} cy={1 - (point.v || 0)} style={{fill: 'red'}}/>
