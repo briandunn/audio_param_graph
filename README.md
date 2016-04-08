@@ -15,4 +15,5 @@ Hosted [hereh](http://briandunn.github.io/audio_param_graph)
 * [ ] Add delete to graph points
 * [ ] Add move to graph points
 * [ ] Add `setValueCurveAtTime`
-* [ ] Add `setTargetAtTime`
+* [X] Add `setTargetAtTime`
+* [ ] Change call order/time ?

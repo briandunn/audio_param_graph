@@ -1,34 +1,52 @@
-import { Map, List } from 'immutable';
+import { Map, List } from 'immutable'
+import _ from 'lodash'
 
 const params = {
   cancelScheduledValues: {
     args: ['t'],
-    fn: (node, args) => node.cancelScheduledValues(args.t)
+    defaults: _ => ({}),
+    apply: (node, args) => node.cancelScheduledValues(args.t)
   },
   exponentialRampToValueAtTime: {
     args: ['v', 't'],
-    fn: (node, args) =>
+    defaults: _ => ({v: 1}),
+    apply: (node, args) =>
       node.exponentialRampToValueAtTime(Math.max(args.v, Number.MIN_VALUE + Number.EPSILON), args.t)
   },
   linearRampToValueAtTime: {
     args: ['v', 't'],
-    fn: (node, args) => node.linearRampToValueAtTime(args.v, args.t)
+    defaults: _ => ({v:  1}),
+    apply: (node, args) => node.linearRampToValueAtTime(args.v, args.t)
   },
   setValueAtTime: {
     args: ['v', 't'],
-    fn: (node, args) => node.setValueAtTime(args.v, args.t)
+    defaults: _ => ({v: 1}),
+    apply: (node, args) => node.setValueAtTime(args.v, args.t)
   },
   setTargetAtTime: {
     args: ['v', 't', 'c'],
-    fn: (node, args) =>
-      node.setTargetAtTime(args.v, args.t, Math.max(args.c || 0, Number.MIN_VALUE))
+    defaults: _ => ({v: 1, c: 1}),
+    apply: (node, args) =>
+      node.setTargetAtTime(args.v, args.t, Math.max(args.c, Number.MIN_VALUE))
+  },
+  setValueCurveAtTime: {
+    args: ['t', 'd'],
+    defaults: () => ({vs: new Float32Array(_.times(30, Math.random)), d: 1}),
+    apply: (node, args, duration) =>
+      node.setValueCurveAtTime(
+        args.vs,
+        args.t,
+        Math.max(args.d * duration - args.t , Number.MIN_VALUE)
+      )
   }
 }
 
 export const paramSignatures = _.mapValues(params, 'args')
 
-export function applyParam(node,segment) {
-  params[segment.method].fn(node, segment)
+export const paramDefaults = _.mapValues(params, 'defaults')
+
+export function applyParam(node,segment, duration) {
+  params[segment.method].apply(node, segment, duration)
 }
 
 export default function model() {

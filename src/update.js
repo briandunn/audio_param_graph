@@ -1,4 +1,5 @@
 import { Map, List } from 'immutable'
+import { paramDefaults } from './model'
 
 export default function reducer(state, action) {
   switch(action.type) {
@@ -14,7 +15,15 @@ export default function reducer(state, action) {
     case 'REMOVE_SEGMENT':
       return state.updateIn(['segments'], segments => segments.delete(action.index))
     case 'CHANGE_SEGMENT':
-      return state.updateIn(['segments', action.index], segment => Map(_.omit(action, ['type', 'index'])))
+      return state.updateIn(
+        ['segments', action.index],
+        segment => Map(
+          _.merge(
+            paramDefaults[action.method](),
+            _.omit(action, ['type', 'index'])
+          )
+        )
+      )
     default:
       console.log("Didn't handle", action)
       return state

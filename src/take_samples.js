@@ -21,7 +21,7 @@ export default (store) => {
   .map(s => s.update('t', t => t * duration))
   .map(s => s.toJS())
   .sortBy(s => s.t)
-  .forEach(segment => applyParam(param, segment))
+  .forEach(segment => applyParam(param, segment, duration))
   param.setValueAtTime(0, duration)
 
   audio.startRendering().then( buffer => {
