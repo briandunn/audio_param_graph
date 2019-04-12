@@ -1,0 +1,5 @@
+name: audio param graph
+url: http://briandunn.github.io/audio_param_graph/
+technologies:
+  - React
+  - Web Audio
